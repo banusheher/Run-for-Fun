@@ -53,7 +53,7 @@ function preload(){
 
   startI = loadImage("start.png");
 
-  coinssound = loadSound("coins sound.wav");
+  coinssound = loadSound("coins-sound.mp3");
 }
 
 function setup(){
@@ -64,7 +64,7 @@ function setup(){
   coins = 0;
   totalcoins = 0;
 
-  coinGroup = createGroup();
+  coinGroup = new Group();
   
   obsGroup = createGroup();
 
@@ -153,8 +153,7 @@ if(gameState===1 && keyDown("G")||mousePressedOver(girl)){
 
 if(gameState===3){
 
-  obs();
-  Con();
+
 
   home.visible=true;
   runner.visible=true;
@@ -166,13 +165,15 @@ if(gameState===3){
     bk.x=bk.width/1.35;
   }
 
+  obs();
+  Con();
   if(mousePressedOver(runner)||keyDown("J")){
    runner.velocityY=-19;
   }
   runner.velocityY=runner.velocityY+0.8;
 
-  if(runner.isTouching(coinGroup)){
-    coinssound.Play();    
+  if(coinGroup.isTouching(runner)){
+    coinssound.play()    
   }
 
 }
@@ -187,7 +188,7 @@ function obs(){
     var hurdle = createSprite(width+30,height/1.25);
     hurdle.addImage(hurdleI);
     hurdle.velocityX =-10;
-    hurdle.scale="0.5";
+    hurdle.scale=0.5;
     hurdle.lifetime=200;
 
     obsGroup.add(hurdle);
@@ -199,7 +200,7 @@ function Con(){
     var coin = createSprite(width+30,height/2.5);
     coin.addImage(coinI);
     coin.velocityX=-10;
-    coin.scale = "0.1";
+    coin.scale = 0.1;
     coin.lifetime=200;
 
     coinGroup.add(coin);
